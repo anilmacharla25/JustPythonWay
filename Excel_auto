@@ -1,0 +1,24 @@
+from openpyxl import *
+from  openpyxl.utils import get_column_letter
+from openpyxl.styles import Font
+data={"joe":{"maths":65,"science":70,"hindi":80},
+        "biden":{'maths':70,"science":88,"hindi":45},
+        "nelson":{"maths":80,"science":78,"hindi":50}}
+wb=Workbook() #creating new excel workbok
+ws=wb.active
+ws.title="Grades"
+headings=["Name"]+list(data["joe"].keys())
+ws.append(headings)
+for person in data:
+    grades=list(data[person].values())
+    ws.append([person]+grades)
+
+#calculatig the average
+for col in range(2,len(data["joe"])+2):
+    char=get_column_letter(col)
+    ws[char+"7"]=f"=SUM({char+'2'}:{char+'6'})/{len(data)}"
+
+#applying styles to perticular column
+for col in range(1,5):
+    ws[get_column_letter(col)+"1"].font=Font(bold=True,color="0099CCFF")
+wb.save("newanil.xlsx")
