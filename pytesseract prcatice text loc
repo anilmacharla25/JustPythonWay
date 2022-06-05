@@ -1,0 +1,33 @@
+import pytesseract
+from pytesseract import Output
+pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
+import cv2
+img=cv2.imread(r"C:\Users\prave\Downloads\cert-1014-21504586.jpg")
+cv2.imshow("sample img",img)
+# cv2.waitkey(0) #press any key it will automatically close
+d=pytesseract.image_to_data(img, output_type=Output.DICT)
+# print(d.items())
+for k in d.items():
+    print(k)
+print("-----------------------------------")
+print(len(d["text"]))
+print(type(d["text"]))
+test_list = list(filter(None, d["text"]))
+print("*******************",len(test_list))
+n_boxes = len(d['level'])
+
+# for i in range(n_boxes):
+#     (x, y, w, h) = (d['left'][i], d['top'][i], d['width'][i], d['height'][i])
+#     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+#     print(x, y, w, h)
+z=0
+for i in range(n_boxes):
+    (left, top, width, height) = (d['left'][i], d['top'][i], d['width'][i], d['height'][i])
+    if d['text'][i] != 0 and len(d['text'][i]) != 0:
+        # Create final coordinates of words, dividing by 2 because I am on a mac retina (resolution is 2x), and dividing width/height by 4, to get center of image.
+        coordinatesOfWord = (left/2 + width/4, top/2 + height/4) 
+        print(coordinatesOfWord,test_list[z])
+        print(z)
+        z=z+1
+
+
