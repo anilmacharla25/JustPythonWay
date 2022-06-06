@@ -1,0 +1,13 @@
+from pywinauto.application import Application
+app=Application(backend="uia").start("notepad.exe").connect(title="Untitled - Notepad",timeout=100)
+# app.UntitledNotepad.print_control_identifiers()
+textEditor=app.UntitledNotepad.child_window(title="Text Editor", auto_id="15", control_type="Edit").wrapper_object() 
+textEditor.type_keys("hey i am automating notepad",with_spaces=True)
+fileMenu=app.UntitledNotepad.child_window(title="File", control_type="MenuItem").wrapper_object()
+fileMenu.click_input()
+# app.UntitledNotepad.print_control_identifiers()
+save=app.UntitledNotepad.child_window(title="Exit", auto_id="7", control_type="MenuItem").wrapper_object()
+save.click_input()
+app.UntitledNotepad.print_control_identifiers()
+save1=app.UntitledNotepad.child_window(title="Save", auto_id="CommandButton_6", control_type="Button").wrapper_object()
+save1.click_input()
