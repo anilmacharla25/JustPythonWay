@@ -11,7 +11,7 @@ import cv2
 
 
 app = Application().Start(cmd_line=u'"C:\Windows\system32\mstsc.exe" ')
-keyboard.SendKeys('10.200.80.115')
+keyboard.SendKeys('address')
 #app.RemoteDesktopConnection.print_control_identifiers()
 connect=app.RemoteDesktopConnection.child_window(title="Co&nnect", class_name="Button").wrapper_object()
 connect.click_input()
